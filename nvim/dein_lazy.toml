@@ -1,0 +1,100 @@
+[[plugins]]
+repo = 'Shougo/neomru.vim'
+on_path = '.*'
+
+[[plugins]]
+repo = 'Shougo/unite.vim'
+depends = 'neomru.vim'
+hook_add = '''
+let g:unite_source_history_yank_enable =1
+let g:unite_source_file_mru_limit = 50
+let g:unite_split_rule = 'botright'
+nnoremap <silent> <Space>b :<C-u>Unite -vertical buffer:-<CR>
+nnoremap <silent> <Space>f :<C-u>Unite -vertical file_rec/async:!<CR>
+nnoremap <silent> <Space>r :<C-u>Unite -vertical -buffer-name=register register<CR>
+'''
+
+[[plugins]]
+repo = 'tyru/caw.vim'
+on_path = '.*'
+hook_add = '''
+let g:caw_no_default_keymappings = 1
+nmap <silent> ,/ <Plug>(caw:zeropos:toggle)
+vmap <silent> ,/ <Plug>(caw:zeropos:toggle)
+'''
+
+[[plugins]]
+repo = 'airblade/vim-gitgutter'
+on_path = '.*'
+hook_add = '''
+let g:rooter_disable_map = 1
+let g:rooter_change_directory_for_non_project_files = 1
+let g:gitgutter_sign_column_always = 1
+let g:gitgutter_sign_added = '✚'
+let g:gitgutter_sign_modified = '➜'
+let g:gitgutter_sign_removed = '_'
+let g:gitgutter_realtime = 0
+let g:gitgutter_eager = 1
+let g:gitgutter_max_signs = 2000
+let g:gitgutter_escape_grep = 1
+'''
+
+[[plugins]]
+repo = 'kannokanno/previm'
+on_ft = ['md','markdown']
+hook_add = '''
+let g:previm_open_cmd = 'google-chrome'
+augroup PrevimSettings
+    autocmd!
+    autocmd BufNewFile,BufRead *.{md,markdown}  set filetype=markdown
+augroup END
+'''
+
+[[plugins]]
+repo = 'Shougo/vinarise.vim'
+on_cmd = ['Vinarise']
+
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
+on_ft = ['c','cpp']
+#hook_add = '''
+## 必要なときに :DeopleteEnable(:call deoplete#enable()?)
+#let g:deoplete#enable_at_startup = 1
+#'''
+
+[[plugins]]
+"repo = 'lyuts/vim-rtags'
+repo = 'nullpo-head/vim-rtags'
+on_ft = ['c','cpp']
+hook_add = '''
+" 定義へジャンプ
+nnoremap <silent> <C-f><C-d> :call rtags#JumpTo(g:SAME_WINDOW)<CR>
+" 参照へジャンプ
+nnoremap <silent> <C-f><C-r> :<C-u>Unite -vertical -winwidth=116 rtags/references<CR>
+" クラス・関数定義内にいたらその先頭へジャンプ
+nnoremap <silent> <F12> :call rtags#JumpToParent()<CR><Paste>
+'''
+
+[[plugins]]
+repo = 'fatih/vim-go'
+on_ft = ['go']
+hook_add = '''
+let g:go_highlight_space_tab_error = 0
+let g:go_highlight_trailing_whitespace_error = 0
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_types = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+au FileType go nmap <C-f><C-d> <Plug>(go-doc-vertical)
+au FileType go nmap <C-f><C-r> <Plug>(go-rename)
+'''
+
+[[plugins]]
+repo = 'terryma/vim-expand-region'
+on_path = '.*'
+hook_add = '''
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
+'''
