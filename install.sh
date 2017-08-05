@@ -29,7 +29,7 @@ _apt_install() {
         if [ $# -eq 2 ]; then
             pkg=$2
         fi
-        sudo aptitude install $pkg
+        sudo aptitude -y install $pkg
     fi
 
     _exit_if_failed 'failed to install' $pkg
