@@ -212,7 +212,7 @@ endif
 function! s:tig_blame()
     let directory = expand("%:p:h")
     let filename = expand("%:p:t")
-    exec ":! tmux new-window 'cd " . directory ." && tig blame " . filename . "'"
+    exec ":! tmux new-window 'cd " . directory ." ;and tig blame " . filename . "'"
 endfunction
 
 if !empty($TMUX)
