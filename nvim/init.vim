@@ -30,11 +30,6 @@ if dein#load_state(s:dein_dir)
   call dein#save_state()
 endif
 
-" vimproc は先にインストール
-if dein#check_install(['vimproc'])
-  call dein#install(['vimproc'])
-endif
-
 " 未インストールものものがあったらインストール
 if dein#check_install()
   call dein#install()
