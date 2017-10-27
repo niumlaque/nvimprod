@@ -70,7 +70,7 @@ _download() {
 _build() {
     cd ${src_dir}
     make clean 1>/dev/null
-    make -j4 CMAKE_BUILD_TYPE=Release
+    make CMAKE_BUILD_TYPE=Release
     _exit_if_failed 'failed to build neovim.'
 }
 
