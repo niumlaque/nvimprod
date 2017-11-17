@@ -220,4 +220,5 @@ else
     " tmux 上じゃない場合は新しい terminal?
 endif
 
+set noshowmode
 filetype plugin indent on

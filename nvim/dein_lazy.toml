@@ -56,11 +56,29 @@ on_cmd = ['Vinarise']
 
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
-on_ft = ['c','cpp']
-#hook_add = '''
-## 必要なときに :DeopleteEnable(:call deoplete#enable()?)
-#let g:deoplete#enable_at_startup = 1
-#'''
+on_ft = ['c','cpp','go']
+on_i = 1
+hook_add = '''
+" 必要なときに :DeopleteEnable(:call deoplete#enable()?)
+let g:deoplete#enable_at_startup = 1
+let g:echodoc_enable_at_startup=1
+set splitbelow
+set completeopt+=noselect
+set completeopt-=preview
+let g:deoplete#file#enable_buffer_path=1
+autocmd CompleteDone * pclose
+'''
+
+[[plugins]]
+repo = 'Shougo/echodoc.vim'
+on_ft = ['go']
+on_i = 1
+
+[[plugins]]
+repo = 'zchee/deoplete-go'
+on_ft = ['go']
+on_i = 1
+build = 'make'
 
 [[plugins]]
 "repo = 'lyuts/vim-rtags'
@@ -74,6 +92,11 @@ nnoremap <silent> <C-f><C-r> :<C-u>Unite -vertical -winwidth=116 rtags/reference
 " クラス・関数定義内にいたらその先頭へジャンプ
 nnoremap <silent> <F12> :call rtags#JumpToParent()<CR><Paste>
 '''
+
+[[plugins]]
+repo = 'nsf/gocode'
+on_ft = ['go']
+on_1 = 1
 
 [[plugins]]
 repo = 'fatih/vim-go'
