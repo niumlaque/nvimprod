@@ -52,6 +52,9 @@ set ruler
 " マウス邪魔
 set mouse=c
 
+" ファイル閉じても undo したい
+set undofile
+
 " 検索でループしない
 set nowrapscan
 
