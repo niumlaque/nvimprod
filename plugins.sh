@@ -26,6 +26,8 @@ _download() {
 
     git clone https://github.com/rizsotto/Bear ${clone_dir}/Bear
     _exit_if_failed 'failed to fetch src.'
+
+    go get golang.org/x/tools/cmd/goimports
 }
 
 _build() {
