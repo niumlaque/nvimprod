@@ -24,6 +24,7 @@ _exit_if_failed() {
 _update() {
     cd ${src_dir}
     _exit_if_failed 'failed to move source directory.'
+    git clean -dfx
     git pull
     _exit_if_failed 'failed to fetch latest source.'
 }
@@ -31,13 +32,13 @@ _update() {
 _build() {
     cd ${src_dir}
     make clean 1>/dev/null
-    make CMAKE_BUILD_TYPE=Release
+    make CMAKE_BUILD_TYPE=Release VERBOSE=1
     _exit_if_failed 'failed to build neovim.'
 }
 
 _install() {
     cd ${src_dir}
-    sudo make install
+    sudo -E make install
     _exit_if_failed 'failed to install neovim.'
 }
 
