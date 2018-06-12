@@ -28,6 +28,7 @@ _download() {
     _exit_if_failed 'failed to fetch src.'
 
     go get golang.org/x/tools/cmd/goimports
+    go get -u -v github.com/nsf/gocode
 }
 
 _build() {

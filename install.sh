@@ -2,8 +2,6 @@
 
 cd `dirname $0`
 work_dir=${PWD}
-clone_dir=${work_dir}/src
-src_dir=${clone_dir}/neovim
 nvim_dir=${work_dir}/nvim
 
 _pinfo() {
@@ -36,14 +34,6 @@ _apt_install() {
 }
 
 _prepare_package() {
-    _apt_install libtool libtool-bin # depends: libtool
-    _apt_install automake            # depends: autoconf
-    _apt_install cmake
-    _apt_install pkg-config
-    _apt_install unzip
-    _apt_install g++
-    _apt_install curl
-
     # for nvim-provider(clipboard)
     _apt_install xclip
     _apt_install xsel
@@ -54,30 +44,6 @@ _prepare_package() {
     # for python interface
     _apt_install python3-pip
     pip3 install neovim
-}
-
-_download() {
-    if [ -e ${clone_dir} ]; then
-        sudo rm -r ${clone_dir}
-        _exit_if_failed 'failed to remove old src directory.'
-    fi
-
-    mkdir -p ${clone_dir}
-    git clone https://github.com/neovim/neovim.git ${src_dir}
-    _exit_if_failed 'failed to fetch src.'
-}
-
-_build() {
-    cd ${src_dir}
-    make clean 1>/dev/null
-    make CMAKE_BUILD_TYPE=Release
-    _exit_if_failed 'failed to build neovim.'
-}
-
-_install() {
-    cd ${src_dir}
-    sudo make install
-    _exit_if_failed 'failed to install neovim.'
 }
 
 _link() {
@@ -93,14 +59,6 @@ _download_dein() {
     sh /tmp/installer.sh ${nvim_dir}
 }
 
-# _pinfo 'env'
-# _pinfo '  work_dir: '${work_dir}
-# _pinfo '  clone_dir: '${clone_dir}
-# _pinfo '  src_dir: '${src_dir}
-
 _prepare_package
-_download
-_build
-_install
 _link
 _download_dein
