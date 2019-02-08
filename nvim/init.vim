@@ -216,3 +216,6 @@ endif
 
 set noshowmode
 filetype plugin indent on
+
+" カラースキーム
+colorscheme molokai
