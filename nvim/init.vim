@@ -35,14 +35,8 @@ if dein#check_install()
   call dein#install()
 endif
 
-""" tmux fixes
-" Handle tmux $TERM quirks in vim
-if $TERM =~ '^screen-256color'
-"    nnoremap   <Home>
-"    nnoremap   <End>
-"    inoremap   <Home>
-"    inoremap   <End>
-endif
+noremap <C-h> 0
+noremap <C-l> $
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ general vim settings
@@ -222,3 +216,6 @@ endif
 
 set noshowmode
 filetype plugin indent on
+
+" カラースキーム
+colorscheme molokai
