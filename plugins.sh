@@ -33,7 +33,7 @@ _download() {
 
 _build() {
     cd ${clone_dir}/rtags
-    LIBCLANG_LLVM_CONFIG_EXECUTABLE=llvm-config-3.8 cmake -DCMAKE_INSTALL_PREFIX=/usr/local
+    LIBCLANG_LLVM_CONFIG_EXECUTABLE=llvm-config-3.9 cmake -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_EXPORT_COMPILE_COMMANDS=1 .
     _exit_if_failed 'failed to build rtags.'
     make -j4
     _exit_if_failed 'failed to build rtags.'
