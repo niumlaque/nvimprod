@@ -47,8 +47,8 @@ _prepare_package() {
 }
 
 _link() {
-    if [ $XDG_CONFIG_HOME ]; then
-        sudo ln -s $work_dir/nvim $XDG_CONFIG_HOME/nvim
+    if [ $XDG_CONFIG_PATH ]; then
+        sudo ln -s $work_dir/nvim $XDG_CONFIG_PATH/nvim
         _exit_if_failed 'failed to create symbolic link.'
     fi
 }
