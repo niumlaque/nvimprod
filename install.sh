@@ -44,6 +44,7 @@ _prepare_package() {
     # for python interface
     _apt_install python3-pip
     pip3 install neovim
+    pip3 install pynvim
 }
 
 _link() {
