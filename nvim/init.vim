@@ -82,6 +82,9 @@ set shiftwidth=4
 set softtabstop=4
 set smarttab
 
+" マーカーで折りたたみ
+set foldmethod=marker
+
 let mapleader = "\<Space>"
 
 " status line に文字コードを改行コード表示
