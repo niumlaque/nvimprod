@@ -168,13 +168,16 @@ nnoremap <silent> <C-g><C-g> :<C-u>call <SID>ngrep()<CR>
 
 " refer: http://stackoverflow.com/questions/1533565/how-to-get-visually-selected-text-in-vimscript
 function! s:get_visual_selection()
-  " Why is this not a built-in Vim script function?!
-  let [lnum1, col1] = getpos("'<")[1:2]
-  let [lnum2, col2] = getpos("'>")[1:2]
-  let lines = getline(lnum1, lnum2)
-  let lines[-1] = lines[-1][: col2 - (&selection == 'inclusive' ? 1 : 2)]
-  let lines[0] = lines[0][col1 - 1:]
-  return join(lines, "\n")
+    " Why is this not a built-in Vim script function?!
+    let [line_start, column_start] = getpos("'<")[1:2]
+    let [line_end, column_end] = getpos("'>")[1:2]
+    let lines = getline(line_start, line_end)
+    if len(lines) == 0
+        return ''
+    endif
+    let lines[-1] = lines[-1][: column_end - (&selection == 'inclusive' ? 1 : 2)]
+    let lines[0] = lines[0][column_start - 1:]
+    return join(lines, "\n")
 endfunction
 
 function! s:vgrep()
@@ -216,6 +219,22 @@ if !empty($TMUX)
 else
     " tmux 上じゃない場合は新しい terminal?
 endif
+
+" 選択範囲の構造体の stringer を出力する
+if executable('go-stringer')
+    function! s:go_stringer()
+        let selection_text = s:get_visual_selection()
+        let [line_end, column_end] = getpos("'>")[1:2]
+        let input_text = system("go-stringer \"" . selection_text . "\"")
+        :call cursor(line_end, column_end)
+        exec ":set paste"
+        exec ":normal o \n" . input_text
+        exec ":set nopaste"
+    endfunction
+
+    command! -range GoString call s:go_stringer()
+endif
+
 
 set noshowmode
 filetype plugin indent on
