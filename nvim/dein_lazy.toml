@@ -43,7 +43,7 @@ let g:gitgutter_escape_grep = 1
 repo = 'kannokanno/previm'
 on_ft = ['md','markdown']
 hook_add = '''
-let g:previm_open_cmd = 'google-chrome'
+let g:previm_open_cmd = 'chromium'
 augroup PrevimSettings
     autocmd!
     autocmd BufNewFile,BufRead *.{md,markdown}  set filetype=markdown
