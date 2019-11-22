@@ -57,7 +57,7 @@ on_cmd = ['Vinarise']
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
 on_ft = ['c','cpp','go']
-on_i = 1
+on_event = 'InsertEnter'
 hook_add = '''
 " 必要なときに :DeopleteEnable(:call deoplete#enable()?)
 let g:deoplete#enable_at_startup = 1
@@ -72,13 +72,7 @@ autocmd CompleteDone * pclose
 [[plugins]]
 repo = 'Shougo/echodoc.vim'
 on_ft = ['go']
-on_i = 1
-
-[[plugins]]
-repo = 'zchee/deoplete-go'
-on_ft = ['go']
-on_i = 1
-build = 'make'
+on_event = 'InsertEnter'
 
 [[plugins]]
 "repo = 'lyuts/vim-rtags'
@@ -94,11 +88,6 @@ nnoremap <silent> <F12> :call rtags#JumpToParent()<CR><Paste>
 '''
 
 [[plugins]]
-repo = 'nsf/gocode'
-on_ft = ['go']
-on_1 = 1
-
-[[plugins]]
 repo = 'fatih/vim-go'
 on_ft = ['go']
 hook_add = '''
@@ -111,8 +100,13 @@ let g:go_highlight_types = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 let g:go_fmt_command = "goimports"
-au FileType go nmap <C-f><C-d> <Plug>(go-doc-vertical)
-au FileType go nmap <C-f><C-r> <Plug>(go-rename)
+let g:go_def_mapping_enabled = 0
+let g:go_doc_keywordprg_enabled = 0
+au FileType go nmap <C-f>d <Plug>(go-doc-vertical)
+au FileType go nmap <C-f>r <Plug>(go-rename)
+au FileType go nmap <C-f>b <Plug>(go-build)
+au FileType go nmap <C-f>t <Plug>(go-test)
+au FileType go nmap <C-f>c <Plug>(go-coverage)
 '''
 
 [[plugins]]
