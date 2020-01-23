@@ -70,7 +70,7 @@ set smarttab
 " set noswapfile
 
 " yank したら clipboard
-set clipboard=unnamed
+set clipboard+=unnamedplus
 
 " 自動インデント
 set smartindent
