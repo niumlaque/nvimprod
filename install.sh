@@ -38,7 +38,7 @@ _prepare_package() {
     _apt_install xclip
     _apt_install xsel
 
-    # for dein
+    # for vim-plug
     _apt_install curl
 
     # for python interface
@@ -54,12 +54,11 @@ _link() {
     fi
 }
 
-_download_dein() {
-    mkdir -p ${plugins_dir}/dein
-    curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > /tmp/installer.sh
-    sh /tmp/installer.sh ${nvim_dir}
+_install_vim_plug() {
+    curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 }
 
 _prepare_package
 _link
-_download_dein
+_install_vim_plug
