@@ -3,7 +3,59 @@ filetype off
 filetype plugin indent off
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+call plug#begin('~/.vim/plugged')
 
+Plug 'Shougo/neomru.vim'
+
+Plug 'Shougo/unite.vim'
+let g:unite_source_history_yank_enable =1
+let g:unite_source_file_mru_limit = 50
+let g:unite_split_rule = 'botright'
+nnoremap <silent> <Space>b :<C-u>Unite -vertical buffer:-<CR>
+nnoremap <silent> <Space>f :<C-u>Unite -vertical file_rec/async:!<CR>
+nnoremap <silent> <Space>r :<C-u>Unite -vertical -buffer-name=register register<CR>
+
+Plug 'Shougo/vimproc.vim', { 'do' : 'make' }
+
+Plug 'tomasr/molokai'
+
+Plug 'tyru/caw.vim'
+let g:caw_no_default_keymappings = 1
+nmap <silent> ,/ <Plug>(caw:zeropos:toggle)
+vmap <silent> ,/ <Plug>(caw:zeropos:toggle)
+
+Plug 'airblade/vim-gitgutter'
+let g:rooter_disable_map = 1
+let g:rooter_change_directory_for_non_project_files = 1
+set signcolumn=yes
+let g:gitgutter_sign_added = '+'
+let g:gitgutter_sign_modified = '➜'
+let g:gitgutter_sign_removed = '_'
+let g:gitgutter_realtime = 0
+let g:gitgutter_eager = 1
+let g:gitgutter_max_signs = 2000
+let g:gitgutter_escape_grep = 1
+
+Plug 'kannokanno/previm', { 'for' : 'markdown' }
+let g:previm_open_cmd = 'chromium'
+let g:previm_enable_realtime = 1
+augroup PrevimSettings
+    autocmd!
+    autocmd BufNewFile,BufRead *.{md,markdown}  set filetype=markdown
+augroup END
+
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+
+"""""""" go """"""""
+Plug 'mattn/vim-lsp-settings'
+Plug 'mattn/vim-goimports'
+
+call plug#end()
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ general vim settings
 " カーソルの位置を表示
