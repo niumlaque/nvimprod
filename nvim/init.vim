@@ -53,6 +53,10 @@ Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'mattn/vim-lsp-settings'
 Plug 'mattn/vim-goimports'
 
+""""""" rust """""""
+Plug 'rust-lang/rust.vim'
+let g:rustfmt_autosave = 1
+
 call plug#end()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
