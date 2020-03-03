@@ -116,9 +116,6 @@ let ff_table = {'dos' : 'CR+LF', 'unix' : 'LF', 'mac' : 'CR' }
 set statusline=%<%F%=%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.ff_table[&ff].']'}\ %l,%c
 highlight statusline term=NONE cterm=NONE ctermfg=yellow ctermbg=235
 
-" 対応する括弧のデフォルトハイライトが見づらい
-highlight MatchParen ctermbg=0
-
 " カーソル行をハイライト
 " refer: http://qiita.com/koara-local/items/57b5f2847b3506a6485b
 " 初期状態はcursorlineを表示しない
@@ -267,3 +264,7 @@ filetype plugin indent on
 
 " カラースキーム
 colorscheme molokai
+
+" (molokai 用)対応する括弧のデフォルトハイライトが見づらい
+" refer: https://github.com/tomasr/molokai/pull/44
+highlight MatchParen cterm=bold ctermfg=208 ctermbg=233
