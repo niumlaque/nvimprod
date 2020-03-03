@@ -3,41 +3,63 @@ filetype off
 filetype plugin indent off
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" dein
-" refer: http://qiita.com/delphinus35/items/00ff2c0ba972c6e41542
-" refer: http://qiita.com/okamos/items/2259d5c770d51b88d75b
-" プラグインが実際にインストールされるディレクトリ
-let s:dein_dir=expand('~/.config/nvim/.deincache')
-" dein.vim 本体
-let s:dein_repo_dir=expand('~/.config/nvim/repos/github.com/Shougo/dein.vim/')
-" set runtimepath^=s:dein_repo_dir
-execute 'set runtimepath^=' . fnamemodify(s:dein_repo_dir, ':p')
+call plug#begin('~/.vim/plugged')
 
-" 設定開始
-if dein#load_state(s:dein_dir)
-  call dein#begin(s:dein_dir)
+Plug 'Shougo/neomru.vim'
 
-  " プラグインリストを収めた TOML ファイル
-  let s:toml      = '~/.config/nvim/dein.toml'
-  let s:lazy_toml = '~/.config/nvim/dein_lazy.toml'
+Plug 'Shougo/unite.vim'
+let g:unite_source_history_yank_enable =1
+let g:unite_source_file_mru_limit = 50
+let g:unite_split_rule = 'botright'
+nnoremap <silent> <Space>b :<C-u>Unite -vertical buffer:-<CR>
+nnoremap <silent> <Space>f :<C-u>Unite -vertical file_rec/async:!<CR>
+nnoremap <silent> <Space>r :<C-u>Unite -vertical -buffer-name=register register<CR>
 
-  " TOML を読み込み、キャッシュしておく
-  call dein#load_toml(s:toml,      {'lazy': 0})
-  call dein#load_toml(s:lazy_toml, {'lazy': 1})
+Plug 'Shougo/vimproc.vim', { 'do' : 'make' }
 
-  " 設定終了
-  call dein#end()
-  call dein#save_state()
-endif
+Plug 'tomasr/molokai'
 
-" 未インストールものものがあったらインストール
-if dein#check_install()
-  call dein#install()
-endif
+Plug 'tyru/caw.vim'
+let g:caw_no_default_keymappings = 1
+nmap <silent> ,/ <Plug>(caw:zeropos:toggle)
+vmap <silent> ,/ <Plug>(caw:zeropos:toggle)
 
-noremap <C-h> 0
-noremap <C-l> $
+Plug 'airblade/vim-gitgutter'
+let g:rooter_disable_map = 1
+let g:rooter_change_directory_for_non_project_files = 1
+set signcolumn=yes
+let g:gitgutter_sign_added = '+'
+let g:gitgutter_sign_modified = '➜'
+let g:gitgutter_sign_removed = '_'
+let g:gitgutter_realtime = 0
+let g:gitgutter_eager = 1
+let g:gitgutter_max_signs = 2000
+let g:gitgutter_escape_grep = 1
 
+Plug 'kannokanno/previm', { 'for' : 'markdown' }
+let g:previm_open_cmd = 'chromium'
+let g:previm_enable_realtime = 1
+augroup PrevimSettings
+    autocmd!
+    autocmd BufNewFile,BufRead *.{md,markdown}  set filetype=markdown
+augroup END
+
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+
+"""""""" go """"""""
+Plug 'mattn/vim-lsp-settings'
+Plug 'mattn/vim-goimports'
+
+""""""" rust """""""
+Plug 'rust-lang/rust.vim'
+let g:rustfmt_autosave = 1
+
+call plug#end()
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ general vim settings
 " カーソルの位置を表示
@@ -93,9 +115,6 @@ let mapleader = "\<Space>"
 let ff_table = {'dos' : 'CR+LF', 'unix' : 'LF', 'mac' : 'CR' }
 set statusline=%<%F%=%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.ff_table[&ff].']'}\ %l,%c
 highlight statusline term=NONE cterm=NONE ctermfg=yellow ctermbg=235
-
-" 対応する括弧のデフォルトハイライトが見づらい
-highlight MatchParen ctermbg=0
 
 " カーソル行をハイライト
 " refer: http://qiita.com/koara-local/items/57b5f2847b3506a6485b
@@ -156,6 +175,10 @@ augroup diffColor
     autocmd!
     autocmd FileType diff call s:diff_color()
 augroup END
+
+" Ctrl+h, Ctrl+l で 行頭、行末。
+noremap <C-h> 0
+noremap <C-l> $
 
 " grep
 function! s:ngrep()
@@ -241,3 +264,7 @@ filetype plugin indent on
 
 " カラースキーム
 colorscheme molokai
+
+" (molokai 用)対応する括弧のデフォルトハイライトが見づらい
+" refer: https://github.com/tomasr/molokai/pull/44
+highlight MatchParen cterm=bold ctermfg=208 ctermbg=233
