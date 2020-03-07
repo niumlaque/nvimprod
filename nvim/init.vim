@@ -56,6 +56,7 @@ Plug 'mattn/vim-goimports'
 """"""" rust """""""
 Plug 'rust-lang/rust.vim'
 let g:rustfmt_autosave = 1
+let g:rustfmt_command = '$HOME/.cargo/bin/rustfmt'
 
 call plug#end()
 
