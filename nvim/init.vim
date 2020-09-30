@@ -50,13 +50,16 @@ Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
 """""""" go """"""""
-Plug 'mattn/vim-lsp-settings'
+" Plug 'mattn/vim-lsp-settings'
 Plug 'mattn/vim-goimports'
 
 """"""" rust """""""
 Plug 'rust-lang/rust.vim'
 let g:rustfmt_autosave = 1
 let g:rustfmt_command = '$HOME/.cargo/bin/rustfmt'
+
+""""""" csv """""""
+Plug 'mechatroner/rainbow_csv'
 
 call plug#end()
 
@@ -243,6 +246,16 @@ if !empty($TMUX)
 else
     " tmux 上じゃない場合は新しい terminal?
 endif
+
+" CSV ハイライト
+" refer: https://qiita.com/rita_cano_bika/items/e447c042e70327014609
+function! CSVH(x)
+    execute 'match Keyword /^\([^,]*,\)\{'.a:x.'}\zs[^,]*/'
+    execute 'normal ^'.a:x.'f,'
+endfunction
+command! -nargs=1 Csv :call CSVH(<args>)
+command! Csvs :call CSVH(strlen(substitute(getline('.')[0:col('.')-1], "[^,]", "", "g")))
+command! Csvn execute 'match none'
 
 " 選択範囲の構造体の stringer を出力する
 if executable('go-stringer')
