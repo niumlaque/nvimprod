@@ -37,7 +37,7 @@ let g:gitgutter_realtime = 0
 let g:gitgutter_eager = 1
 let g:gitgutter_max_signs = 2000
 let g:gitgutter_escape_grep = 1
-let g:gitgutter_highlight_lines = 1
+" let g:gitgutter_highlight_lines = 1
 
 Plug 'kannokanno/previm', { 'for' : 'markdown' }
 let g:previm_open_cmd = 'chromium'
@@ -87,13 +87,6 @@ set display=uhex
 " 行番号を表示
 set number
 
-" TAB 関連の設定
-set expandtab
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
-set smarttab
-
 " nvim では ~/.local/share/nvim/swap の下に作成されるので別にいいや？
 " スワップファイルを作らない
 " set noswapfile
@@ -110,6 +103,11 @@ set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set smarttab
+
+augroup filetypeIndent
+  autocmd!
+  autocmd BufNewFile,BufRead *.js setlocal tabstop=2 softtabstop=2 shiftwidth=2
+augroup END
 
 " マーカーで折りたたみ
 set foldmethod=marker
