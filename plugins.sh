@@ -20,12 +20,12 @@ _exit_if_failed() {
 }
 
 _download() {
-    mkdir -p ${clone_dir}
-    git clone --recursive -j8 https://github.com/Andersbakken/rtags.git ${clone_dir}/rtags
-    _exit_if_failed 'failed to fetch src.'
-
-    git clone https://github.com/rizsotto/Bear ${clone_dir}/Bear
-    _exit_if_failed 'failed to fetch src.'
+#     mkdir -p ${clone_dir}
+#     git clone --recursive -j8 https://github.com/Andersbakken/rtags.git ${clone_dir}/rtags
+#     _exit_if_failed 'failed to fetch src.'
+# 
+#     git clone https://github.com/rizsotto/Bear ${clone_dir}/Bear
+#     _exit_if_failed 'failed to fetch src.'
 
     go get golang.org/x/tools/cmd/goimports
     go get -u golang.org/x/tools/cmd/gopls
@@ -56,5 +56,5 @@ _install() {
 }
 
 _download
-_build
-_install
+# _build
+# _install
