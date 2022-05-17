@@ -51,6 +51,7 @@ Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'mattn/vim-sqlfmt'
 
 """""""" go """"""""
 " Plug 'mattn/vim-lsp-settings'

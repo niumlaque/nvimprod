@@ -45,6 +45,7 @@ _prepare_package() {
     _apt_install python3-pip
     pip3 install neovim
     pip3 install pynvim
+    pip3 install sqlparse
 }
 
 _link() {
