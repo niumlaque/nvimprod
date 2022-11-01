@@ -65,6 +65,9 @@ let g:rustfmt_command = '$HOME/.cargo/bin/rustfmt'
 """"""" csv """""""
 Plug 'mechatroner/rainbow_csv'
 
+""""""" typescript """""""
+Plug 'leafgarland/typescript-vim'
+
 call plug#end()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
