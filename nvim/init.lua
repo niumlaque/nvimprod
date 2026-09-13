@@ -9,6 +9,15 @@ Plug("tomasr/molokai")
 vim.call("plug#end")
 
 vim.cmd.colorscheme("molokai")
+vim.api.nvim_set_hl(0, "MatchParen", {
+    bold = true,
+    fg = "#ff8700",
+    bg = "#121212",
+})
+vim.api.nvim_set_hl(0, "StatusLine", {
+    bg = "#161616",
+})
+
 vim.cmd("filetype plugin indent on")
 
 vim.opt.number = true
