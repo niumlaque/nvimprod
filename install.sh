@@ -1,65 +1,32 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -eu
 
-cd `dirname $0`
-work_dir=${PWD}
-nvim_dir=${work_dir}/nvim
+repo_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+source_dir="$repo_dir/nvim"
 
-_pinfo() {
-    echo -e '\033[0;32m'$@'\033[0;39m'
-}
+config_home="${XDG_CONFIG_HOME:-$HOME/.config}"
+data_home="${XDG_DATA_HOME:-$HOME/.local/share}"
 
-_perror() {
-    echo -e '\033[0;31m'$@'\033[0;39m'
-}
+config_dir="$config_home/nvim"
+plug_path="$data_home/nvim/site/autoload/plug.vim"
 
-_exit_if_failed() {
-    if [ $? -ne 0 ]; then
-        _perror $1
-        exit 0
+if [ -e "$config_dir" ] || [ -L "$config_dir" ]; then
+    if [ ! -L "$config_dir" ] || [ "$(readlink -f "$config_dir")" != "$source_dir" ]; then
+        echo "$config_dir already exists and does not point to $source_dir." >&2
+        exit 1
     fi
-}
+else
+    mkdir -p "$(dirname "$config_dir")"
+    ln -s "$source_dir" "$config_dir"
+fi
 
-_apt_install() {
-    if [ `which ${1}` ]; then
-        _pinfo $1 'is already installed.'
-    else
-        pkg=$1
-        if [ $# -eq 2 ]; then
-            pkg=$2
-        fi
-        sudo aptitude -y install $pkg
-    fi
+if [ ! -f "$plug_path" ]; then
+    mkdir -p "$(dirname "$plug_path")"
 
-    _exit_if_failed 'failed to install' $pkg
-}
-
-_prepare_package() {
-    # for nvim-provider(clipboard)
-    _apt_install xclip
-    _apt_install xsel
-
-    # for vim-plug
-    _apt_install curl
-
-    # for python interface
-    _apt_install python3-pip
-    pip3 install neovim
-    pip3 install pynvim
-    pip3 install sqlparse
-}
-
-_link() {
-    if [ $XDG_CONFIG_PATH ]; then
-        sudo ln -s $work_dir/nvim $XDG_CONFIG_PATH/nvim
-        _exit_if_failed 'failed to create symbolic link.'
-    fi
-}
-
-_install_vim_plug() {
-    curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+    curl -fLo "$plug_path" \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-}
+fi
 
-_prepare_package
-_link
-_install_vim_plug
+echo "Neovim configuration installed."
+echo "Run :PlugInstall in Neovim."
+
