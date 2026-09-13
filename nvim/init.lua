@@ -64,4 +64,7 @@ vim.opt.statusline =
     "%<%F%=%m%r%h%w%{v:lua.nvimprod_status_file_info()} %l,%c"
 
 vim.opt.mouse = ""
+if vim.fn.has("win32") == 0 then
+    vim.g.clipboard = "xsel"
+end
 vim.opt.clipboard:append("unnamedplus")
