@@ -12,3 +12,6 @@ vim.cmd.colorscheme("molokai")
 
 vim.keymap.set("n", "<leader>f", "<cmd>Telescope find_files<CR>")
 vim.keymap.set("n", "<leader>b", "<cmd>Telescope buffers<CR>")
+
+vim.opt.clipboard:append("unnamedplus")
+
